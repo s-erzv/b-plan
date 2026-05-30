@@ -26,4 +26,4 @@ b-plan adalah tool manajemen konten media sosial berbasis AI yang mengotomasi pr
 3. Run the app:
    `npm run dev`
 
-View your app in AI Studio: https://ai.studio/apps/b523851e-7de7-4555-977b-9109895eefe3
+View app in AI Studio: https://ai.studio/apps/b523851e-7de7-4555-977b-9109895eefe3
