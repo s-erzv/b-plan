@@ -1,0 +1,266 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "B-Plan Logo" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "B-Plan Logo" [ref=e7]
+      - navigation [ref=e8]:
+        - link "Fitur" [ref=e9] [cursor=pointer]:
+          - /url: /fitur
+        - link "Cara Kerja" [ref=e10] [cursor=pointer]:
+          - /url: /#cara-kerja
+      - generic [ref=e11]:
+        - link "Masuk" [ref=e12] [cursor=pointer]:
+          - /url: /masuk
+        - link "Mulai Gratis →" [ref=e13] [cursor=pointer]:
+          - /url: /masuk
+  - generic [ref=e14]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - text: AI Content Planner untuk UMKM Indonesia
+      - heading "Konten Sosmed UMKM Kamu, Jalan Sendiri." [level=1] [ref=e20]:
+        - generic [ref=e21]: Konten Sosmed
+        - generic [ref=e22]: UMKM Kamu,
+        - generic [ref=e23]: Jalan Sendiri.
+      - paragraph [ref=e24]: B-Plan generate kalender konten 7 hari — lengkap caption Bahasa Indonesia, hashtag trending, visual AI, dan langsung sync ke Google Calendar kamu. Sekali klik.
+      - generic [ref=e25]:
+        - link "Buat Kalender Sekarang" [ref=e26] [cursor=pointer]:
+          - /url: /masuk
+          - text: Buat Kalender Sekarang
+          - img [ref=e27]
+        - link "Lihat Cara Kerja" [ref=e29] [cursor=pointer]:
+          - /url: "#cara-kerja"
+          - img [ref=e30]
+          - text: Lihat Cara Kerja
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - paragraph [ref=e34]: 500+
+          - paragraph [ref=e35]: UMKM Aktif
+        - generic [ref=e36]:
+          - paragraph [ref=e37]: 7.000+
+          - paragraph [ref=e38]: Konten Dibuat
+        - generic [ref=e39]:
+          - paragraph [ref=e40]: 4.9/5
+          - paragraph [ref=e41]: Rating Pengguna
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e47]: Hari 1 — Edukasi
+        - paragraph [ref=e48]: "\"Tau gak sih kenapa kopi robusta Gayo lebih nikmat pas pagi hari? ☕ Kandungan kafeinnya...\""
+        - generic [ref=e49]:
+          - generic [ref=e50]: "#kopigayo"
+          - generic [ref=e51]: "#umkmkopi"
+          - generic [ref=e52]: "#kopilokal"
+      - generic [ref=e53]:
+        - generic [ref=e56]: Hari 2 — Promo
+        - paragraph [ref=e57]: "\"Flash sale hari ini! Beli 2 gratis 1 sampai jam 21.00 🔥\""
+      - generic [ref=e58]:
+        - generic [ref=e61]: Hari 3 — BTS
+        - paragraph [ref=e62]: "\"Intip dapur produksi kami yuk! 👀 Setiap produk dibuat dengan...\""
+  - generic [ref=e65]:
+    - generic [ref=e66]:
+      - img [ref=e68]
+      - paragraph [ref=e73]: 64M+
+      - paragraph [ref=e74]: UMKM di Indonesia
+    - generic [ref=e75]:
+      - img [ref=e77]
+      - paragraph [ref=e79]: 7 Hari
+      - paragraph [ref=e80]: Konten Auto per Minggu
+    - generic [ref=e81]:
+      - img [ref=e83]
+      - paragraph [ref=e86]: 4 Platform
+      - paragraph [ref=e87]: IG, TikTok, FB, Twitter
+    - generic [ref=e88]:
+      - img [ref=e90]
+      - paragraph [ref=e93]: <60 Detik
+      - paragraph [ref=e94]: Waktu Generate Konten
+  - generic [ref=e97]:
+    - generic [ref=e98]:
+      - generic [ref=e99]: Masalah UMKM Hari Ini
+      - heading "Habis waktu buat konten, bukan untuk jualan." [level=2] [ref=e100]:
+        - text: Habis waktu buat konten,
+        - text: bukan untuk jualan.
+      - paragraph [ref=e101]: Pemilik UMKM rata-rata menghabiskan 2–3 jam per hari hanya untuk memikirkan caption dan konten sosmed. Waktu yang seharusnya bisa dipakai untuk fokus pada produk dan pelanggan.
+    - generic [ref=e102]:
+      - generic [ref=e103]:
+        - generic [ref=e104]: 😓
+        - paragraph [ref=e105]: Bingung mau posting apa setiap hari
+      - generic [ref=e106]:
+        - generic [ref=e107]: ⏰
+        - paragraph [ref=e108]: Buang waktu nulis caption dari nol
+      - generic [ref=e109]:
+        - generic [ref=e110]: 📉
+        - paragraph [ref=e111]: Engagement rendah karena konten tidak konsisten
+      - generic [ref=e112]:
+        - generic [ref=e113]: 💸
+        - paragraph [ref=e114]: Mahal hire tim konten atau social media manager
+  - generic [ref=e116]:
+    - generic [ref=e117]:
+      - generic [ref=e118]: Fitur Unggulan
+      - heading "Semua yang kamu butuhkan, sudah ada di sini." [level=2] [ref=e119]:
+        - text: Semua yang kamu butuhkan,
+        - text: sudah ada di sini.
+    - generic [ref=e120]:
+      - generic [ref=e123]:
+        - img [ref=e125]
+        - heading "AI Content Calendar Generator" [level=3] [ref=e128]
+        - paragraph [ref=e129]: Isi profil produk UMKM kamu sekali, Gemini AI langsung buatkan 7 hari konten lengkap — tema, caption Bahasa Indonesia, dan hashtag trending yang relevan.
+        - generic [ref=e130]:
+          - generic [ref=e131]:
+            - img [ref=e132]
+            - text: Caption BI
+          - generic [ref=e135]:
+            - img [ref=e136]
+            - text: 7 Hari Konten
+          - generic [ref=e139]:
+            - img [ref=e140]
+            - text: Hashtag Lokal
+          - generic [ref=e143]:
+            - img [ref=e144]
+            - text: Tone Kustom
+          - generic [ref=e147]:
+            - img [ref=e148]
+            - text: Kategori Bisnis
+      - generic [ref=e153]:
+        - img [ref=e155]
+        - heading "Generate Gambar Promosi AI" [level=3] [ref=e159]
+        - paragraph [ref=e160]: Gemini 2.5 sulap ide visual jadi gambar promosi siap pakai untuk feed Instagram & TikTok dalam hitungan detik.
+        - generic [ref=e162]:
+          - img [ref=e164]
+          - paragraph [ref=e168]: Gemini Imagen 2.5
+      - generic [ref=e171]:
+        - img [ref=e173]
+        - heading "Video Reels AI (Veo 3.1)" [level=3] [ref=e176]
+        - paragraph [ref=e177]: Buat video promosi audio-visual untuk Reels & TikTok menggunakan teknologi Veo 3.1 terbaru Google — tanpa perlu kamera.
+        - generic [ref=e178]: Beta
+      - generic [ref=e182]:
+        - img [ref=e184]
+        - heading "Sync Google Calendar" [level=3] [ref=e186]
+        - paragraph [ref=e187]: Jadwalkan setiap postingan langsung ke Google Calendar kamu. Ada reminder otomatis 30 menit sebelum waktu upload.
+      - generic [ref=e188]:
+        - img [ref=e190]
+        - heading "Arsip & Manajemen Konten" [level=3] [ref=e193]
+        - paragraph [ref=e194]: Simpan semua rencana konten ke arsip. Load ulang kapan saja untuk referensi atau generate ulang dengan profil yang sama.
+  - generic [ref=e196]:
+    - generic [ref=e197]:
+      - generic [ref=e198]: Cara Kerja
+      - heading "3 langkah, konten selesai seminggu." [level=2] [ref=e199]:
+        - text: 3 langkah, konten
+        - text: selesai seminggu.
+    - generic [ref=e200]:
+      - generic [ref=e202]:
+        - generic [ref=e203]: "1"
+        - generic [ref=e204]:
+          - generic [ref=e205]:
+            - heading "Isi Profil Produk UMKM Kamu" [level=3] [ref=e206]
+            - generic [ref=e207]: Setup Sekali
+          - paragraph [ref=e208]: Masukkan nama produk, target audiens, kategori bisnis, dan gaya komunikasi yang kamu inginkan. Proses ini cuma butuh 2 menit.
+      - generic [ref=e209]:
+        - generic [ref=e210]: "2"
+        - generic [ref=e211]:
+          - generic [ref=e212]:
+            - heading "AI Generate Kalender 7 Hari" [level=3] [ref=e213]
+            - generic [ref=e214]: < 60 Detik
+          - paragraph [ref=e215]: Gemini AI akan menganalisis profil produkmu dan merancang 7 tema konten yang relevan — lengkap dengan caption siap-posting, hashtag trending lokal, dan konsep visual.
+      - generic [ref=e216]:
+        - generic [ref=e217]: "3"
+        - generic [ref=e218]:
+          - generic [ref=e219]:
+            - heading "Generate Visual, Jadwalkan & Posting" [level=3] [ref=e220]
+            - generic [ref=e221]: Otomatis
+          - paragraph [ref=e222]: Buat gambar atau video promosi AI, lalu jadwalkan langsung ke Google Calendar kamu. Kamu tinggal terima reminder dan posting.
+  - generic [ref=e224]:
+    - generic [ref=e225]:
+      - generic [ref=e226]: Testimoni
+      - heading "UMKM berbicara." [level=2] [ref=e227]
+    - generic [ref=e228]:
+      - generic [ref=e229]:
+        - generic [ref=e230]:
+          - img [ref=e231]
+          - img [ref=e233]
+          - img [ref=e235]
+          - img [ref=e237]
+          - img [ref=e239]
+        - paragraph [ref=e241]: "\"Sebelum pakai B-Plan, saya bisa berjam-jam cuma buat mikirin caption. Sekarang tinggal klik, langsung jadi 7 hari konten yang relevan banget sama produk saya!\""
+        - generic [ref=e242]:
+          - generic [ref=e243]: R
+          - generic [ref=e244]:
+            - paragraph [ref=e245]: Rina Kusuma
+            - paragraph [ref=e246]: Owner, Rein Skincare Jakarta
+      - generic [ref=e247]:
+        - generic [ref=e248]:
+          - img [ref=e249]
+          - img [ref=e251]
+          - img [ref=e253]
+          - img [ref=e255]
+          - img [ref=e257]
+        - paragraph [ref=e259]: "\"Hashtag-nya niche banget, engagement Instagram saya naik 40% dalam 2 minggu pertama. Fitur sync Google Calendar juga bikin saya nggak pernah lupa posting lagi.\""
+        - generic [ref=e260]:
+          - generic [ref=e261]: B
+          - generic [ref=e262]:
+            - paragraph [ref=e263]: Budi Santoso
+            - paragraph [ref=e264]: Pemilik, Warung Kopi Nusantara
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - img [ref=e267]
+          - img [ref=e269]
+          - img [ref=e271]
+          - img [ref=e273]
+          - img [ref=e275]
+        - paragraph [ref=e277]: "\"Awalnya skeptis, tapi caption yang di-generate ternyata natural banget bahasa Indonesianya, nggak kaku kayak terjemahan. Cocok banget buat UMKM fashion kayak saya.\""
+        - generic [ref=e278]:
+          - generic [ref=e279]: S
+          - generic [ref=e280]:
+            - paragraph [ref=e281]: Sari Dewi
+            - paragraph [ref=e282]: Founder, Batik Sari Collection
+  - generic [ref=e289]:
+    - generic [ref=e290]: Gratis, Tanpa Kartu Kredit
+    - heading "Mulai sekarang. Konten jalan, bisnis tumbuh." [level=2] [ref=e291]:
+      - text: Mulai sekarang.
+      - text: Konten jalan, bisnis tumbuh.
+    - paragraph [ref=e292]: Bergabung bersama ratusan UMKM Indonesia yang sudah menyederhanakan strategi konten mereka bersama B-Plan.
+    - link "Mulai Gratis — Pakai Google" [ref=e293] [cursor=pointer]:
+      - /url: /masuk
+      - img [ref=e294]
+      - text: Mulai Gratis — Pakai Google
+    - paragraph [ref=e296]: Cukup dengan akun Google kamu. Tidak perlu daftar manual.
+  - contentinfo [ref=e297]:
+    - generic [ref=e298]:
+      - generic [ref=e299]:
+        - generic [ref=e300]:
+          - link "B–Plan" [ref=e301] [cursor=pointer]:
+            - /url: /
+            - img [ref=e303]
+            - generic [ref=e305]: B–Plan
+          - paragraph [ref=e306]: AI Content Planner yang dirancang khusus untuk UMKM Indonesia. Konten sosmed jalan sendiri, kamu fokus berbisnis.
+          - generic [ref=e307]:
+            - link [ref=e308] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e309]
+            - link [ref=e312] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e313]
+        - generic [ref=e315]:
+          - paragraph [ref=e316]: Produk
+          - list [ref=e317]:
+            - listitem [ref=e318]:
+              - link "Fitur" [ref=e319] [cursor=pointer]:
+                - /url: /fitur
+            - listitem [ref=e320]:
+              - link "Cara Kerja" [ref=e321] [cursor=pointer]:
+                - /url: /#cara-kerja
+            - listitem [ref=e322]:
+              - link "Dashboard" [ref=e323] [cursor=pointer]:
+                - /url: /dashboard
+        - generic [ref=e324]:
+          - paragraph [ref=e325]: Legal
+          - list [ref=e326]:
+            - listitem [ref=e327]:
+              - link "Kebijakan Privasi" [ref=e328] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e329]:
+              - link "Syarat Layanan" [ref=e330] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e331]:
+        - paragraph [ref=e332]: © 2026 B-Plan. Didukung oleh Google Gemini AI & Veo 3.1
+        - generic [ref=e335]: Semua sistem aktif
