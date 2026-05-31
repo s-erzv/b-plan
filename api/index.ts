@@ -334,7 +334,7 @@ Provide ONLY the final expanded English prompt to be used directly, with no extr
   }
 });
 
-// Configure Vite middleware for dev or Serve static files in prod
+// Configure Vite middleware for dev
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
@@ -342,21 +342,15 @@ async function startServer() {
       appType: "spa",
     });
     app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+    
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server running on http://localhost:${PORT}`);
     });
   }
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
 }
 
-// On Vercel, only export the app — Vercel handles listening.
-// Locally / traditional hosting, start the server normally.
+// On Vercel, we only export the app. 
+// Locally, we start the server for development.
 if (!process.env.VERCEL) {
   startServer();
 }
