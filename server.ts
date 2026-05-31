@@ -355,4 +355,10 @@ async function startServer() {
   });
 }
 
-startServer();
+// On Vercel, only export the app — Vercel handles listening.
+// Locally / traditional hosting, start the server normally.
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
