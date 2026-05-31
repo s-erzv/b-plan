@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Sun, Moon, Zap } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 interface NavbarProps {
   user?: any;
@@ -53,19 +53,8 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center transition-all group-hover:scale-105"
-            style={{ background: "var(--gold)" }}
-          >
-            <Zap className="w-4 h-4 fill-current" style={{ color: "var(--gold-fg)" }} />
-          </div>
-          <span
-            className="font-display font-extrabold text-xl tracking-tight"
-            style={{ color: "var(--text)" }}
-          >
-            B–Plan
-          </span>
+        <Link to="/" className="flex items-center">
+          <img src="/2.png" alt="B-Plan" className="h-8 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
