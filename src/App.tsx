@@ -6,6 +6,7 @@ import { LandingPage } from "./pages/LandingPage";
 import { FiturPage } from "./pages/FiturPage";
 import { MasukPage } from "./pages/MasukPage";
 import { DashboardPage } from "./pages/DashboardPage";
+import { DeckPage } from "./pages/DeckPage";
 import { RefreshCw, Zap } from "lucide-react";
 
 /* ── Auth-aware routes wrapper ─────────────────────── */
@@ -94,6 +95,9 @@ function AppRoutes() {
             : <Navigate to="/masuk" replace />
         }
       />
+
+      {/* Deck */}
+      <Route path="/deck" element={<DeckPage />} />
 
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

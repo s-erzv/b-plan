@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Zap, Shield, ArrowLeft, Sparkles, Calendar, Image } from "lucide-react";
+import { ArrowLeft, Shield, Sparkles, Calendar, Image, Zap, CheckCircle } from "lucide-react";
 import { GoogleSignInButton } from "../components/GoogleSignInButton";
 
 interface MasukPageProps {
@@ -11,15 +11,19 @@ interface MasukPageProps {
 
 export const MasukPage: React.FC<MasukPageProps> = ({ onSignIn, isLoading, error }) => {
   return (
-    <div className="min-h-screen bg-[#06060C] text-[#F0F0F8] flex overflow-hidden">
+    <div className="min-h-screen flex overflow-hidden" style={{ background: "var(--bg)", color: "var(--text)" }}>
 
-      {/* Left: Form panel */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 py-16 relative z-10">
-        {/* Back link */}
+      {/* ── Left: Auth Panel ─────────────────────────── */}
+      <div className="flex-1 flex flex-col items-center justify-center px-8 py-16 relative">
+
+        {/* Back */}
         <div className="absolute top-6 left-6">
           <Link
             to="/"
-            className="flex items-center gap-2 text-sm text-[#6B6B8A] hover:text-white transition-colors"
+            className="flex items-center gap-2 text-sm font-medium transition-colors"
+            style={{ color: "var(--text-2)" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "var(--text-2)")}
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Beranda
@@ -29,122 +33,153 @@ export const MasukPage: React.FC<MasukPageProps> = ({ onSignIn, isLoading, error
         <div className="w-full max-w-sm">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 mb-10">
-            <div className="w-9 h-9 rounded-xl bg-violet-600 flex items-center justify-center shadow-lg shadow-violet-900/50">
-              <Zap className="w-5 h-5 text-white fill-white" />
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "var(--gold)" }}>
+              <Zap className="w-5 h-5 fill-current" style={{ color: "var(--gold-fg)" }} />
             </div>
-            <span className="font-display font-black text-2xl tracking-tight">
-              <span className="text-gradient-violet">B–</span>
-              <span className="text-[#F0F0F8]">Plan</span>
-            </span>
+            <span className="font-display font-extrabold text-2xl tracking-tight" style={{ color: "var(--text)" }}>B–Plan</span>
           </Link>
 
           {/* Heading */}
-          <h1 className="font-display font-black text-3xl text-white mb-2 leading-tight">
+          <h1 className="font-display font-extrabold text-4xl mb-2 leading-tight" style={{ color: "var(--text)" }}>
             Selamat datang.
           </h1>
-          <p className="text-[#6B6B8A] text-base mb-10 leading-relaxed">
+          <p className="text-base mb-10 leading-relaxed" style={{ color: "var(--text-2)" }}>
             Masuk dengan akun Google kamu untuk mulai merencanakan konten UMKM secara otomatis.
           </p>
 
           {/* Auth card */}
-          <div className="rounded-2xl bg-[#0E0E1A] border border-white/[0.08] p-7 flex flex-col gap-5">
+          <div
+            className="rounded-2xl p-7 flex flex-col gap-5"
+            style={{ background: "var(--card-bg)", border: "1px solid var(--border)" }}
+          >
             <GoogleSignInButton onSignIn={onSignIn} isLoading={isLoading} />
 
             {error && (
-              <div className="p-4 rounded-xl bg-red-900/20 border border-red-500/25 text-red-300 text-sm text-center">
+              <div
+                className="p-4 rounded-xl text-sm text-center"
+                style={{ background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.25)", color: "#FCA5A5" }}
+              >
                 {error}
               </div>
             )}
 
             <div className="flex items-center gap-3">
-              <div className="flex-1 h-px bg-white/[0.06]" />
-              <span className="text-xs text-[#4a4a65]">aman & terenkripsi</span>
-              <div className="flex-1 h-px bg-white/[0.06]" />
+              <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
+              <span className="text-xs" style={{ color: "var(--text-2)" }}>aman & terenkripsi</span>
+              <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
             </div>
 
-            {/* Trust signals */}
             <div className="flex flex-col gap-3">
               {[
                 "Login via Google OAuth 2.0 resmi",
                 "Data kamu tidak pernah kami jual",
                 "Kapan saja bisa cabut akses",
               ].map((item) => (
-                <div key={item} className="flex items-center gap-3 text-xs text-[#6B6B8A]">
-                  <Shield className="w-3.5 h-3.5 text-[#00E87A] flex-shrink-0" />
+                <div key={item} className="flex items-center gap-3 text-xs" style={{ color: "var(--text-2)" }}>
+                  <Shield className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--green)" }} />
                   {item}
                 </div>
               ))}
             </div>
           </div>
 
-          <p className="text-[#4a4a65] text-xs text-center mt-6 leading-relaxed">
+          <p className="text-xs text-center mt-6 leading-relaxed" style={{ color: "var(--text-2)", opacity: 0.7 }}>
             Dengan masuk, kamu menyetujui{" "}
-            <a href="#" className="text-[#6B6B8A] hover:text-white underline transition-colors">Syarat Layanan</a>
+            <a href="#" className="underline transition-colors" style={{ color: "var(--text-2)" }}>Syarat Layanan</a>
             {" "}dan{" "}
-            <a href="#" className="text-[#6B6B8A] hover:text-white underline transition-colors">Kebijakan Privasi</a>{" "}kami.
+            <a href="#" className="underline transition-colors" style={{ color: "var(--text-2)" }}>Kebijakan Privasi</a>{" "}kami.
           </p>
         </div>
       </div>
 
-      {/* Right: Visual panel (hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-[45%] bg-gradient-to-br from-violet-900/30 to-[#06060C] border-l border-white/[0.06] flex-col items-center justify-center p-16 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-violet-700/10 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-[#00E87A]/5 blur-[100px]" />
+      {/* ── Right: Visual Panel ──────────────────────── */}
+      <div
+        className="hidden lg:flex lg:w-[46%] flex-col items-center justify-center p-16 relative overflow-hidden"
+        style={{ background: "var(--bg-2)", borderLeft: "1px solid var(--border)" }}
+      >
+        {/* Gold orb */}
+        <div
+          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%)" }}
+        />
+        {/* Blue orb */}
+        <div
+          className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)" }}
+        />
 
         {/* Grid */}
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
+            opacity: 0.5,
           }}
         />
 
-        <div className="relative z-10 w-full max-w-sm space-y-4">
-          {/* Feature showcase cards */}
-          <div className="rounded-2xl bg-[#0E0E1A]/80 border border-white/[0.07] p-5 backdrop-blur-sm">
+        <div className="relative z-10 w-full max-w-sm flex flex-col gap-4">
+          {/* AI Content card */}
+          <div className="rounded-2xl p-5" style={{ background: "var(--card-bg)", border: "1px solid var(--border)" }}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-violet-600/25 border border-violet-500/25 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-violet-300" />
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--gold-dim)", border: "1px solid rgba(245,158,11,0.25)" }}>
+                <Sparkles className="w-4 h-4" style={{ color: "var(--gold)" }} />
               </div>
               <div>
-                <p className="text-white text-sm font-semibold">AI Content Generator</p>
-                <p className="text-[#6B6B8A] text-xs">7 hari konten dalam 60 detik</p>
+                <p className="text-sm font-semibold" style={{ color: "var(--text)" }}>AI Content Generator</p>
+                <p className="text-xs" style={{ color: "var(--text-2)" }}>7 hari konten dalam 60 detik</p>
               </div>
             </div>
-            <div className="space-y-2">
-              {["Caption Hari 1 — Edukasi ✓", "Caption Hari 2 — Promo ✓", "Caption Hari 3 — BTS ✓"].map(i => (
-                <div key={i} className="h-6 rounded-lg bg-white/[0.04] flex items-center px-3">
-                  <span className="text-xs text-[#6B6B8A]">{i}</span>
+            <div className="flex flex-col gap-2">
+              {[
+                { label: "Hari 1 — Edukasi", done: true },
+                { label: "Hari 2 — Promo", done: true },
+                { label: "Hari 3 — Behind The Scenes", done: true },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center justify-between h-8 rounded-lg px-3" style={{ background: "var(--bg-3)" }}>
+                  <span className="text-xs" style={{ color: "var(--text-2)" }}>{item.label}</span>
+                  {item.done && <CheckCircle className="w-3.5 h-3.5" style={{ color: "var(--green)" }} />}
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Stats row */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl bg-[#0E0E1A]/80 border border-white/[0.07] p-4 backdrop-blur-sm">
-              <Image className="w-5 h-5 text-[#00E87A] mb-3" />
-              <p className="text-white text-xs font-semibold mb-1">Gambar AI</p>
-              <p className="text-[#6B6B8A] text-[10px]">Generate visual dalam detik</p>
+            <div className="rounded-xl p-4" style={{ background: "var(--card-bg)", border: "1px solid var(--border)" }}>
+              <Image className="w-5 h-5 mb-3" style={{ color: "var(--green)" }} />
+              <p className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>Gambar AI</p>
+              <p className="text-xs" style={{ color: "var(--text-2)" }}>Visual promosi dalam detik</p>
             </div>
-            <div className="rounded-xl bg-[#0E0E1A]/80 border border-white/[0.07] p-4 backdrop-blur-sm">
-              <Calendar className="w-5 h-5 text-blue-400 mb-3" />
-              <p className="text-white text-xs font-semibold mb-1">Auto Jadwal</p>
-              <p className="text-[#6B6B8A] text-[10px]">Sync ke Google Calendar</p>
+            <div className="rounded-xl p-4" style={{ background: "var(--card-bg)", border: "1px solid var(--border)" }}>
+              <Calendar className="w-5 h-5 mb-3" style={{ color: "var(--blue)" }} />
+              <p className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>Auto Jadwal</p>
+              <p className="text-xs" style={{ color: "var(--text-2)" }}>Sync ke Google Calendar</p>
             </div>
           </div>
 
-          {/* Quote */}
-          <div className="rounded-2xl bg-gradient-to-br from-violet-700/20 to-transparent border border-violet-500/15 p-5">
-            <p className="text-[#A0A0C0] text-sm leading-relaxed italic mb-4">
+          {/* Testimonial */}
+          <div
+            className="rounded-2xl p-5"
+            style={{
+              background: "var(--card-bg)",
+              border: "1px solid var(--border)",
+              borderLeft: "3px solid var(--gold)",
+            }}
+          >
+            <p className="text-sm leading-relaxed italic mb-4" style={{ color: "var(--text-2)" }}>
               "B-Plan menghemat 2 jam saya setiap hari. Kontennya relevan banget sama produk saya!"
             </p>
             <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-full bg-violet-600 flex items-center justify-center text-xs font-bold text-white">R</div>
+              <div
+                className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
+                style={{ background: "var(--gold)", color: "var(--gold-fg)" }}
+              >
+                R
+              </div>
               <div>
-                <p className="text-white text-xs font-semibold">Rina, Owner Skincare</p>
-                <p className="text-[#6B6B8A] text-[10px]">Jakarta Selatan</p>
+                <p className="text-xs font-semibold" style={{ color: "var(--text)" }}>Rina, Owner Skincare</p>
+                <p className="text-[10px]" style={{ color: "var(--text-2)" }}>Jakarta Selatan</p>
               </div>
             </div>
           </div>

@@ -251,7 +251,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
 
   const inputCls = "w-full px-3.5 py-2.5 rounded-xl text-sm outline-none transition-all font-sans"
     + " bg-[var(--bg-3)] border border-[var(--border-2)] text-[var(--text)] placeholder:text-[var(--text-2)]"
-    + " focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/10";
+    + " focus:border-[var(--gold)] focus:ring-2 focus:ring-[rgba(245,158,11,0.12)]";
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg)", color: "var(--text)" }}>
@@ -410,12 +410,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                       onChange={(e) => setBusinessCategory(e.target.value)}
                       className={`${inputCls} appearance-none cursor-pointer`}
                     >
-                      <option value="Food & Beverage">🍽️  Makanan & Minuman</option>
-                      <option value="Fashion & Apparels">👗  Pakaian & Fashion</option>
-                      <option value="Beauty & Personal Care">💄  Kecantikan & Kosmetik</option>
-                      <option value="Handicrafts & Home Decor">🏺  Kriya & Dekorasi</option>
-                      <option value="Services & Consultancy">💼  Jasa & Konsultasi</option>
-                      <option value="Other">✨  Lainnya</option>
+                      <option value="Food & Beverage">Makanan & Minuman</option>
+                      <option value="Fashion & Apparels">Pakaian & Fashion</option>
+                      <option value="Beauty & Personal Care">Kecantikan & Kosmetik</option>
+                      <option value="Handicrafts & Home Decor">Kriya & Dekorasi</option>
+                      <option value="Services & Consultancy">Jasa & Konsultasi</option>
+                      <option value="Other">Lainnya</option>
                     </select>
                   </div>
 
@@ -429,11 +429,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                       onChange={(e) => setTone(e.target.value)}
                       className={`${inputCls} appearance-none cursor-pointer`}
                     >
-                      <option value="Casual & Akrab">😊  Casual & Akrab</option>
-                      <option value="Profesional & Terpercaya">🤝  Profesional & Informatif</option>
-                      <option value="Humoris & Viral">😂  Humoris & Viral</option>
-                      <option value="Estetik & Puitis">🌙  Estetik & Menginspirasi</option>
-                      <option value="Persuasif & Hard Selling">🔥  Persuasif & Hard Selling</option>
+                      <option value="Casual & Akrab">Casual & Akrab</option>
+                      <option value="Profesional & Terpercaya">Profesional & Informatif</option>
+                      <option value="Humoris & Viral">Humoris & Viral</option>
+                      <option value="Estetik & Puitis">Estetik & Menginspirasi</option>
+                      <option value="Persuasif & Hard Selling">Persuasif & Hard Selling</option>
                     </select>
                   </div>
 
@@ -599,7 +599,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                         onClick={handleAddAllToCalendar}
                         disabled={isBulkScheduling || !accessToken}
                         className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-bold transition-all hover:opacity-90 hover:-translate-y-px hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
-                        style={{ background: "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)" }}
+                        style={{ background: "var(--gold)", color: "var(--gold-fg)" }}
                         title={!accessToken ? "Koneksi Google diperlukan" : "Jadwalkan semua 7 hari ke Google Calendar"}
                       >
                         {isBulkScheduling ? (

@@ -4,28 +4,18 @@ import { Zap, Instagram, Twitter } from "lucide-react";
 
 export const Footer: React.FC = () => {
   return (
-    <footer
-      className="pt-16 pb-10"
-      style={{ borderTop: "1px solid var(--border)", background: "var(--bg)" }}
-    >
+    <footer className="pt-16 pb-10" style={{ borderTop: "1px solid var(--border)", background: "var(--bg)" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          {/* Brand */}
           <div className="md:col-span-2">
-            <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ background: "var(--violet)" }}
-              >
-                <Zap className="w-4 h-4 text-white fill-white" />
+            <Link to="/" className="flex items-center gap-2.5 mb-5">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--gold)" }}>
+                <Zap className="w-4 h-4 fill-current" style={{ color: "var(--gold-fg)" }} />
               </div>
-              <span className="font-display font-black text-xl tracking-tight" style={{ color: "var(--text)" }}>
-                B–Plan
-              </span>
+              <span className="font-display font-extrabold text-xl" style={{ color: "var(--text)" }}>B–Plan</span>
             </Link>
             <p className="text-sm leading-relaxed max-w-xs" style={{ color: "var(--text-2)" }}>
-              AI Content Planner yang dirancang khusus untuk UMKM Indonesia. Konten sosmed
-              jalan sendiri, kamu fokus berbisnis.
+              AI Content Planner dirancang khusus untuk UMKM Indonesia. Konten sosmed jalan sendiri, kamu fokus berbisnis.
             </p>
             <div className="flex items-center gap-3 mt-5">
               {[Instagram, Twitter].map((Icon, i) => (
@@ -33,19 +23,9 @@ export const Footer: React.FC = () => {
                   key={i}
                   href="#"
                   className="w-9 h-9 rounded-lg flex items-center justify-center transition-all"
-                  style={{
-                    background: "var(--bg-3)",
-                    border: "1px solid var(--border)",
-                    color: "var(--text-2)",
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--text)";
-                    (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-2)";
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-2)";
-                    (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-3)";
-                  }}
+                  style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text-2)" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--gold)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-2)"; }}
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -53,11 +33,8 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Product */}
           <div>
-            <p className="font-display font-bold text-sm mb-4" style={{ color: "var(--text)" }}>
-              Produk
-            </p>
+            <p className="font-display font-bold text-sm mb-4" style={{ color: "var(--text)" }}>Produk</p>
             <ul className="flex flex-col gap-3">
               {[
                 { label: "Fitur", href: "/fitur" },
@@ -69,7 +46,7 @@ export const Footer: React.FC = () => {
                     to={link.href}
                     className="text-sm transition-colors"
                     style={{ color: "var(--text-2)" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--text-2)")}
                   >
                     {link.label}
@@ -79,11 +56,8 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
-            <p className="font-display font-bold text-sm mb-4" style={{ color: "var(--text)" }}>
-              Legal
-            </p>
+            <p className="font-display font-bold text-sm mb-4" style={{ color: "var(--text)" }}>Legal</p>
             <ul className="flex flex-col gap-3">
               {["Kebijakan Privasi", "Syarat Layanan"].map((item) => (
                 <li key={item}>
@@ -91,7 +65,7 @@ export const Footer: React.FC = () => {
                     href="#"
                     className="text-sm transition-colors"
                     style={{ color: "var(--text-2)" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+                    onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--text-2)")}
                   >
                     {item}
@@ -102,19 +76,13 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div
-          className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3"
-          style={{ borderTop: "1px solid var(--border)" }}
-        >
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderTop: "1px solid var(--border)" }}>
           <p className="text-xs" style={{ color: "var(--text-2)" }}>
             © 2026 B-Plan. Didukung oleh Google Gemini AI & Veo 3.1
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-xs" style={{ color: "var(--text-2)" }}>
-              Semua sistem aktif
-            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-xs" style={{ color: "var(--text-2)" }}>Semua sistem aktif</span>
           </div>
         </div>
       </div>
