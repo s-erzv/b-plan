@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Zap, Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 interface NavbarProps {
   user?: any;
@@ -10,6 +10,13 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem("bp-theme") as "dark" | "light") || "dark";
+    }
+    return "dark";
+  });
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -19,6 +26,12 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("bp-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
   const isDashboard = location.pathname === "/dashboard";
 
   const navLinks = [
@@ -26,48 +39,81 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
     { label: "Cara Kerja", href: "/#cara-kerja" },
   ];
 
+  const scrolledStyle: React.CSSProperties = {
+    background: "var(--bg-nav)",
+    borderBottom: "1px solid var(--border)",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
+  };
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || isDashboard
-          ? "bg-[#06060C]/90 backdrop-blur-xl border-b border-white/[0.06]"
-          : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={scrolled || isDashboard ? scrolledStyle : {}}
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <img src="/2.png" alt="B-Plan Logo" className="h-8 w-auto" />
+        <Link to="/" className="flex items-center gap-2.5">
+          <img src="/2.png" alt="B-Plan" className="h-8 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {!isDashboard && navLinks.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                location.pathname === link.href
-                  ? "text-white bg-white/[0.07]"
-                  : "text-[#6B6B8A] hover:text-white hover:bg-white/[0.05]"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {!isDashboard &&
+            navLinks.map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+                style={{
+                  color:
+                    location.pathname === link.href
+                      ? "var(--text)"
+                      : "var(--text-2)",
+                  background:
+                    location.pathname === link.href
+                      ? "var(--bg-3)"
+                      : "transparent",
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
         </nav>
 
-        {/* Right Actions */}
+        {/* Right */}
         <div className="hidden md:flex items-center gap-3">
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:scale-105"
+            style={{
+              background: "var(--bg-3)",
+              color: "var(--text-2)",
+              border: "1px solid var(--border)",
+            }}
+            title={theme === "dark" ? "Light mode" : "Dark mode"}
+          >
+            {theme === "dark" ? (
+              <Sun className="w-3.5 h-3.5" />
+            ) : (
+              <Moon className="w-3.5 h-3.5" />
+            )}
+          </button>
+
           {user ? (
             <>
               <button
                 onClick={() => navigate("/dashboard")}
-                className="px-4 py-2 rounded-lg text-sm font-semibold text-[#A78BFA] hover:text-white hover:bg-white/[0.05] transition-colors"
+                className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+                style={{ color: "var(--violet)" }}
               >
                 Dashboard
               </button>
-              <div className="flex items-center gap-2 pl-3 border-l border-white/[0.08]">
+              <div
+                className="flex items-center gap-2 pl-3"
+                style={{ borderLeft: "1px solid var(--border)" }}
+              >
                 {user.photoURL ? (
                   <img
                     src={user.photoURL}
@@ -76,13 +122,17 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="w-7 h-7 rounded-full bg-violet-700 flex items-center justify-center text-xs font-bold text-white">
+                  <div
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                    style={{ background: "var(--violet)" }}
+                  >
                     {user.displayName?.charAt(0) || "U"}
                   </div>
                 )}
                 <button
                   onClick={onLogout}
-                  className="text-xs text-[#6B6B8A] hover:text-red-400 transition-colors font-medium"
+                  className="text-xs font-medium transition-colors hover:text-red-400"
+                  style={{ color: "var(--text-2)" }}
                 >
                   Keluar
                 </button>
@@ -92,13 +142,15 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
             <>
               <Link
                 to="/masuk"
-                className="px-4 py-2 rounded-lg text-sm font-semibold text-[#6B6B8A] hover:text-white hover:bg-white/[0.05] transition-colors"
+                className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+                style={{ color: "var(--text-2)" }}
               >
                 Masuk
               </Link>
               <Link
                 to="/masuk"
-                className="px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-bold transition-all hover:shadow-lg hover:shadow-violet-900/40 hover:-translate-y-px"
+                className="px-5 py-2 rounded-lg text-sm font-bold text-white transition-all hover:opacity-90 hover:-translate-y-px"
+                style={{ background: "var(--violet)" }}
               >
                 Mulai Gratis →
               </Link>
@@ -106,44 +158,95 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
           )}
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden p-2 text-[#6B6B8A] hover:text-white transition-colors"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Mobile right */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            onClick={toggleTheme}
+            className="w-8 h-8 rounded-lg flex items-center justify-center"
+            style={{
+              background: "var(--bg-3)",
+              color: "var(--text-2)",
+              border: "1px solid var(--border)",
+            }}
+          >
+            {theme === "dark" ? (
+              <Sun className="w-3.5 h-3.5" />
+            ) : (
+              <Moon className="w-3.5 h-3.5" />
+            )}
+          </button>
+          <button
+            className="p-2 transition-colors"
+            style={{ color: "var(--text-2)" }}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[#0E0E1A] border-t border-white/[0.06] px-5 py-4 flex flex-col gap-2">
-          {!isDashboard && navLinks.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="px-4 py-3 rounded-lg text-sm font-semibold text-[#6B6B8A] hover:text-white hover:bg-white/[0.05] transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="pt-2 border-t border-white/[0.06] flex flex-col gap-2">
+        <div
+          className="md:hidden px-5 py-4 flex flex-col gap-2"
+          style={{
+            background: "var(--bg-2)",
+            borderTop: "1px solid var(--border)",
+          }}
+        >
+          {!isDashboard &&
+            navLinks.map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="px-4 py-3 rounded-lg text-sm font-semibold transition-colors"
+                style={{ color: "var(--text-2)" }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          <div
+            className="pt-2 flex flex-col gap-2"
+            style={{ borderTop: "1px solid var(--border)" }}
+          >
             {user ? (
               <>
-                <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-lg bg-violet-600 text-white text-sm font-bold text-center">
+                <Link
+                  to="/dashboard"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg text-sm font-bold text-white text-center"
+                  style={{ background: "var(--violet)" }}
+                >
                   Dashboard
                 </Link>
-                <button onClick={onLogout} className="px-4 py-3 rounded-lg text-sm font-medium text-red-400 text-center">
+                <button
+                  onClick={onLogout}
+                  className="px-4 py-3 rounded-lg text-sm font-medium text-red-400 text-center"
+                >
                   Keluar
                 </button>
               </>
             ) : (
               <>
-                <Link to="/masuk" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-lg text-sm font-semibold text-[#6B6B8A] text-center">
+                <Link
+                  to="/masuk"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg text-sm font-semibold text-center"
+                  style={{ color: "var(--text-2)" }}
+                >
                   Masuk
                 </Link>
-                <Link to="/masuk" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-lg bg-violet-600 text-white text-sm font-bold text-center">
+                <Link
+                  to="/masuk"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg text-sm font-bold text-white text-center"
+                  style={{ background: "var(--violet)" }}
+                >
                   Mulai Gratis →
                 </Link>
               </>
