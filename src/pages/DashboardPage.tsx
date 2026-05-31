@@ -11,7 +11,7 @@ import {
   Sparkles, Calendar, Bookmark, LogOut, RefreshCw, ArrowRight,
   Zap, Briefcase, ChevronDown, ChevronUp,
   LayoutGrid, Archive, Plus, CheckCircle, AlertCircle, Info, X,
-  CalendarPlus,
+  CalendarPlus, Sun, Moon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -51,6 +51,19 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
 
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
   const [isBulkScheduling, setIsBulkScheduling] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem("bp-theme") as "dark" | "light") || "dark";
+    }
+    return "dark";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("bp-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
   const triggerToast = (message: string, type: "success" | "error" | "info") => {
     setToast({ message, type });
@@ -266,13 +279,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
       >
         <div className="flex items-center justify-between w-full max-w-screen-2xl mx-auto">
 
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--violet)" }}>
-              <Zap className="w-4 h-4 text-white fill-white" />
-            </div>
-            <span className="font-display font-black text-lg tracking-tight" style={{ color: "var(--text)" }}>
-              B–Plan
-            </span>
+          <Link to="/" className="flex items-center">
+            <img src="/2.png" alt="B-Plan" className="h-8 w-auto" />
           </Link>
 
           {/* Tabs */}
@@ -284,7 +292,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
               onClick={() => setActiveTab("buat")}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all"
               style={activeTab === "buat" ? {
-                background: "var(--violet)", color: "white",
+                background: "var(--gold)", color: "var(--gold-fg)",
               } : {
                 color: "var(--text-2)",
               }}
@@ -296,7 +304,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
               onClick={() => setActiveTab("arsip")}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all"
               style={activeTab === "arsip" ? {
-                background: "var(--violet)", color: "white",
+                background: "var(--gold)", color: "var(--gold-fg)",
               } : {
                 color: "var(--text-2)",
               }}
@@ -306,7 +314,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
               {savedCalendars.length > 0 && (
                 <span
                   className="text-[10px] px-1.5 py-0.5 rounded-full"
-                  style={{ background: "var(--violet-dim)", color: "#A78BFA", border: "1px solid rgba(124,58,237,0.3)" }}
+                  style={{ background: "var(--gold-dim)", color: "var(--gold)", border: "1px solid rgba(245,158,11,0.3)" }}
                 >
                   {savedCalendars.length}
                 </span>
@@ -316,6 +324,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
 
           {/* User */}
           <div className="flex items-center gap-3">
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:scale-105"
+              style={{ background: "var(--bg-3)", color: "var(--text-2)", border: "1px solid var(--border)" }}
+              title={theme === "dark" ? "Light mode" : "Dark mode"}
+            >
+              {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+            </button>
             <div className="hidden sm:flex items-center gap-2">
               {user.photoURL ? (
                 <img
@@ -327,7 +344,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
               ) : (
                 <div
                   className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                  style={{ background: "var(--violet)" }}
+                  style={{ background: "var(--gold)", color: "var(--gold-fg)" }}
                 >
                   {user.displayName?.charAt(0) || "U"}
                 </div>
@@ -367,9 +384,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                 <div className="flex items-center gap-3">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{ background: "var(--violet-dim)", border: "1px solid rgba(124,58,237,0.25)" }}
+                    style={{ background: "var(--gold-dim)", border: "1px solid rgba(245,158,11,0.25)" }}
                   >
-                    <Briefcase className="w-4 h-4 text-violet-400" />
+                    <Briefcase className="w-4 h-4" style={{ color: "var(--gold)" }} />
                   </div>
                   <div>
                     <h2 className="font-display font-black text-base" style={{ color: "var(--text)" }}>
@@ -388,7 +405,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                   {/* Nama Produk */}
                   <div className="lg:col-span-1 flex flex-col gap-1.5">
                     <label className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-2)" }}>
-                      Nama Produk / Merek <span className="text-violet-400">*</span>
+                      Nama Produk / Merek <span style={{ color: "var(--gold)" }}>*</span>
                     </label>
                     <input
                       type="text"
@@ -446,7 +463,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                       type="submit"
                       disabled={isGenerating}
                       className="w-full flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl text-white font-display font-bold text-sm transition-all hover:opacity-90 hover:-translate-y-px hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
-                      style={{ background: "var(--violet)" }}
+                      style={{ background: "var(--gold)", color: "var(--gold-fg)" }}
                     >
                       {isGenerating ? (
                         <><RefreshCw className="w-4 h-4 animate-spin" /> Mengolah...</>
@@ -460,7 +477,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                 {/* Target Audiens — full width */}
                 <div className="mb-4">
                   <label className="text-[11px] font-semibold uppercase tracking-wider block mb-1.5" style={{ color: "var(--text-2)" }}>
-                    Target Audiens <span className="text-violet-400">*</span>
+                    Target Audiens <span style={{ color: "var(--gold)" }}>*</span>
                   </label>
                   <textarea
                     required
@@ -665,7 +682,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                 >
                   <div
                     className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                    style={{ background: "var(--violet-dim)", border: "1px solid rgba(124,58,237,0.25)" }}
+                    style={{ background: "var(--gold-dim)", border: "1px solid rgba(245,158,11,0.25)" }}
                   >
                     <Calendar className="w-7 h-7 text-violet-400" />
                   </div>
@@ -675,13 +692,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                     </h3>
                     <p className="text-sm max-w-sm leading-relaxed" style={{ color: "var(--text-2)" }}>
                       Isi profil produk di atas, lalu klik{" "}
-                      <span className="text-violet-400 font-semibold">Generate 7 Hari</span>{" "}
+                      <span className="font-semibold" style={{ color: "var(--gold)" }}>Generate 7 Hari</span>{" "}
                       untuk memulai.
                     </p>
                   </div>
                   <div className="flex flex-wrap justify-center gap-3 mt-2">
                     {["Caption BI", "7 Hari Konten", "Hashtag Lokal", "Konsep Visual"].map((f) => (
-                      <span key={f} className="tag tag-violet text-xs">{f}</span>
+                      <span key={f} className="tag tag-gold text-xs">{f}</span>
                     ))}
                   </div>
                 </div>
@@ -711,15 +728,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
               <div
                 className="rounded-2xl p-10 flex flex-col gap-6 h-full justify-center"
                 style={{
-                  background: "linear-gradient(135deg, var(--violet-dim) 0%, var(--card-bg) 100%)",
-                  border: "1px solid rgba(124,58,237,0.15)",
+                  background: "linear-gradient(135deg, var(--gold-dim) 0%, var(--card-bg) 100%)",
+                  border: "1px solid rgba(245,158,11,0.15)",
                 }}
               >
                 <div
                   className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                  style={{ background: "var(--violet-dim)", border: "1px solid rgba(124,58,237,0.25)" }}
+                  style={{ background: "var(--gold-dim)", border: "1px solid rgba(245,158,11,0.25)" }}
                 >
-                  <Archive className="w-6 h-6 text-violet-300" />
+                  <Archive className="w-6 h-6" style={{ color: "var(--gold)" }} />
                 </div>
                 <div>
                   <h3 className="font-display font-bold text-xl mb-3" style={{ color: "var(--text)" }}>
@@ -733,7 +750,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                     ].map((tip, i) => (
                       <div key={i} className="flex items-start gap-3 text-sm" style={{ color: "var(--text-2)" }}>
                         <span
-                          className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 text-violet-300"
+                          className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 font-semibold" style={{ color: "var(--gold)" }}
                           style={{ background: "var(--violet-dim)", border: "1px solid rgba(124,58,237,0.3)" }}
                         >
                           {i + 1}
@@ -746,7 +763,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                 <button
                   onClick={() => setActiveTab("buat")}
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-display font-bold text-sm transition-all hover:opacity-90 w-fit"
-                  style={{ background: "var(--violet)" }}
+                  style={{ background: "var(--gold)", color: "var(--gold-fg)" }}
                 >
                   <Plus className="w-4 h-4" />
                   Buat Kalender Baru

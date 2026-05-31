@@ -33,10 +33,13 @@ export const SavedPlannerList: React.FC<SavedPlannerListProps> = ({ planners, on
 
   if (planners.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center rounded-2xl bg-[#0E0E1A] border border-dashed border-white/[0.07]">
-        <FolderOpen className="w-10 h-10 text-[#3a3a55] mx-auto mb-3" />
-        <p className="text-sm font-semibold text-[#6B6B8A]">Belum ada arsip.</p>
-        <p className="text-xs text-[#4a4a65] mt-1 max-w-xs leading-relaxed">
+      <div
+        className="flex flex-col items-center justify-center py-16 text-center rounded-2xl"
+        style={{ background: "var(--card-bg)", border: "1px dashed var(--border-2)" }}
+      >
+        <FolderOpen className="w-10 h-10 mx-auto mb-3" style={{ color: "var(--text-2)", opacity: 0.4 }} />
+        <p className="text-sm font-semibold" style={{ color: "var(--text-2)" }}>Belum ada arsip.</p>
+        <p className="text-xs mt-1 max-w-xs leading-relaxed" style={{ color: "var(--text-2)", opacity: 0.6 }}>
           Buat kalender konten dan simpan ke arsip untuk melihatnya di sini.
         </p>
       </div>
@@ -49,15 +52,20 @@ export const SavedPlannerList: React.FC<SavedPlannerListProps> = ({ planners, on
         <div
           key={p.id}
           onClick={() => onSelect(p)}
-          className="group relative bg-[#0E0E1A] p-5 rounded-2xl border border-white/[0.07] hover:border-violet-500/30 transition-all cursor-pointer flex flex-col gap-3"
+          className="group relative p-5 rounded-2xl transition-all cursor-pointer flex flex-col gap-3"
+          style={{ background: "var(--card-bg)", border: "1px solid var(--border)" }}
+          onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(245,158,11,0.35)")}
+          onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--border)")}
         >
-          {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <h4 className="font-display font-bold text-white text-base leading-tight group-hover:text-violet-300 transition-colors truncate">
+              <h4
+                className="font-display font-bold text-base leading-tight truncate transition-colors"
+                style={{ color: "var(--text)" }}
+              >
                 {p.productName}
               </h4>
-              <p className="text-xs text-[#6B6B8A] mt-0.5 truncate">
+              <p className="text-xs mt-0.5 truncate" style={{ color: "var(--text-2)" }}>
                 {p.targetAudience}
               </p>
             </div>
@@ -65,23 +73,37 @@ export const SavedPlannerList: React.FC<SavedPlannerListProps> = ({ planners, on
               <button
                 disabled={deletingId === p.id}
                 onClick={(e) => handleDeleteClick(e, p.id, p.productName)}
-                className="p-2 rounded-lg bg-[#161625] border border-white/[0.06] text-[#6B6B8A] hover:text-red-400 hover:bg-red-900/20 hover:border-red-700/25 transition-all disabled:opacity-50"
+                className="p-2 rounded-lg transition-all disabled:opacity-50 hover:text-red-400"
+                style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text-2)" }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.12)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(239,68,68,0.25)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "var(--bg-3)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)";
+                }}
                 title="Hapus"
               >
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
-              <div className="p-2 rounded-lg bg-[#161625] border border-white/[0.06] text-[#6B6B8A] group-hover:text-violet-300 group-hover:bg-violet-900/20 group-hover:border-violet-700/25 transition-all">
+              <div
+                className="p-2 rounded-lg transition-all"
+                style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text-2)" }}
+              >
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </div>
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="flex items-center justify-between pt-3 border-t border-white/[0.05]">
-            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-violet-900/20 text-violet-300 border border-violet-700/20">
+          <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--border)" }}>
+            <span
+              className="text-[11px] font-semibold px-2.5 py-1 rounded-lg"
+              style={{ background: "var(--gold-dim)", color: "var(--gold)", border: "1px solid rgba(245,158,11,0.22)" }}
+            >
               {p.businessCategory || "Umum"}
             </span>
-            <div className="flex items-center gap-1.5 text-[11px] text-[#6B6B8A]">
+            <div className="flex items-center gap-1.5 text-[11px]" style={{ color: "var(--text-2)" }}>
               <Calendar className="w-3 h-3" />
               {formatDate(p.createdAt)}
             </div>

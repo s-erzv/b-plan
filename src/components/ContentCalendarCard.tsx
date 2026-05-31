@@ -3,7 +3,7 @@ import { ContentDay } from "../types";
 import {
   Copy, Check, Calendar, Sparkles, CheckCircle, Video,
   Film, Download, RefreshCw, PlayCircle, ImageIcon, ChevronDown, ChevronUp,
-  Hash, Clock
+  Hash, Clock,
 } from "lucide-react";
 
 interface ContentCalendarCardProps {
@@ -13,18 +13,18 @@ interface ContentCalendarCardProps {
   onAlert: (msg: string, type: "success" | "error" | "info") => void;
 }
 
-const dayThemeColors: Record<string, { dot: string; badge: string }> = {
-  edu: { dot: "bg-blue-400", badge: "bg-blue-900/30 text-blue-300 border-blue-700/30" },
-  tips: { dot: "bg-blue-400", badge: "bg-blue-900/30 text-blue-300 border-blue-700/30" },
-  promo: { dot: "bg-rose-400", badge: "bg-rose-900/30 text-rose-300 border-rose-700/30" },
-  diskon: { dot: "bg-rose-400", badge: "bg-rose-900/30 text-rose-300 border-rose-700/30" },
-  sell: { dot: "bg-rose-400", badge: "bg-rose-900/30 text-rose-300 border-rose-700/30" },
-  behind: { dot: "bg-amber-400", badge: "bg-amber-900/30 text-amber-300 border-amber-700/30" },
-  proses: { dot: "bg-amber-400", badge: "bg-amber-900/30 text-amber-300 border-amber-700/30" },
-  dapur: { dot: "bg-amber-400", badge: "bg-amber-900/30 text-amber-300 border-amber-700/30" },
-  testi: { dot: "bg-emerald-400", badge: "bg-emerald-900/30 text-emerald-300 border-emerald-700/30" },
-  review: { dot: "bg-emerald-400", badge: "bg-emerald-900/30 text-emerald-300 border-emerald-700/30" },
-  rekomen: { dot: "bg-emerald-400", badge: "bg-emerald-900/30 text-emerald-300 border-emerald-700/30" },
+const dayThemeColors: Record<string, { dot: string; color: string }> = {
+  edu:     { dot: "#3B82F6", color: "rgba(59,130,246,0.12)"  },
+  tips:    { dot: "#3B82F6", color: "rgba(59,130,246,0.12)"  },
+  promo:   { dot: "#EF4444", color: "rgba(239,68,68,0.12)"   },
+  diskon:  { dot: "#EF4444", color: "rgba(239,68,68,0.12)"   },
+  sell:    { dot: "#EF4444", color: "rgba(239,68,68,0.12)"   },
+  behind:  { dot: "#F59E0B", color: "rgba(245,158,11,0.12)"  },
+  proses:  { dot: "#F59E0B", color: "rgba(245,158,11,0.12)"  },
+  dapur:   { dot: "#F59E0B", color: "rgba(245,158,11,0.12)"  },
+  testi:   { dot: "#10B981", color: "rgba(16,185,129,0.12)"  },
+  review:  { dot: "#10B981", color: "rgba(16,185,129,0.12)"  },
+  rekomen: { dot: "#10B981", color: "rgba(16,185,129,0.12)"  },
 };
 
 function getThemeStyle(theme: string) {
@@ -32,13 +32,11 @@ function getThemeStyle(theme: string) {
   for (const [key, val] of Object.entries(dayThemeColors)) {
     if (lower.includes(key)) return val;
   }
-  return { dot: "bg-violet-400", badge: "bg-violet-900/30 text-violet-300 border-violet-700/30" };
+  return { dot: "#A78BFA", color: "rgba(167,139,250,0.12)" };
 }
 
-const inputCls = "w-full px-3 py-2 rounded-lg bg-[#0E0E1A] border border-white/[0.07] text-[#F0F0F8] text-xs outline-none focus:border-violet-500/40 transition-all";
-
 export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
-  dayInfo, productName, accessToken, onAlert
+  dayInfo, productName, accessToken, onAlert,
 }) => {
   const { day, theme, visual_concept, caption, hashtags } = dayInfo;
   const themeStyle = getThemeStyle(theme);
@@ -144,7 +142,9 @@ export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
       onAlert("Koneksi Google kedaluwarsa. Masuk kembali.", "error");
       return;
     }
-    const confirmed = window.confirm(`Jadwalkan Hari ${day} ("${theme}") ke Google Calendar pada ${scheduledDate} pukul ${scheduledTime}?`);
+    const confirmed = window.confirm(
+      `Jadwalkan Hari ${day} ("${theme}") ke Google Calendar pada ${scheduledDate} pukul ${scheduledTime}?`
+    );
     if (!confirmed) return;
     setIsScheduling(true);
     try {
@@ -153,7 +153,7 @@ export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
       const endMs = startMs + 30 * 60 * 1000;
       const eventPayload = {
         summary: `[B-Plan] ${productName} — Hari ${day}: ${theme}`,
-        description: `📅 B-Plan Social Media Planner\n\n📌 Tema: ${theme}\n\n🎬 Konsep Visual:\n${visual_concept}\n\n✍️ Caption:\n${caption}\n\n🏷️ Hashtags:\n${hashtags.join(" ")}`,
+        description: `B-Plan Social Media Planner\n\nTema: ${theme}\n\nKonsep Visual:\n${visual_concept}\n\nCaption:\n${caption}\n\nHashtags:\n${hashtags.join(" ")}`,
         start: { dateTime: new Date(startMs).toISOString(), timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Jakarta" },
         end: { dateTime: new Date(endMs).toISOString(), timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Jakarta" },
         colorId: "5",
@@ -178,34 +178,58 @@ export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
     }
   };
 
-  return (
-    <div className="rounded-2xl bg-[#0E0E1A] border border-white/[0.07] flex flex-col overflow-hidden hover:border-white/[0.12] transition-colors">
+  const inputCls = "w-full px-3 py-2 rounded-lg text-xs outline-none transition-all"
+    + " bg-[var(--bg-3)] border border-[var(--border-2)] text-[var(--text)]"
+    + " focus:border-[var(--gold)] focus:ring-1 focus:ring-[rgba(245,158,11,0.15)]";
 
-      {/* Card Header */}
-      <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between">
+  const collapseHeaderCls = "w-full flex items-center justify-between px-4 py-3 transition-all text-left";
+
+  return (
+    <div
+      className="rounded-2xl flex flex-col overflow-hidden transition-all hover:translate-y-[-2px]"
+      style={{
+        background: "var(--card-bg)",
+        border: "1px solid var(--border)",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
+      }}
+      onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 8px 30px rgba(0,0,0,0.2)")}
+      onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.12)")}
+    >
+      {/* ── Card Header ─────────────────────────────── */}
+      <div
+        className="px-5 py-3.5 flex items-center justify-between"
+        style={{ borderBottom: "1px solid var(--border)" }}
+      >
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#161625] border border-white/[0.08] flex items-center justify-center font-display font-black text-white text-sm">
+          <div
+            className="w-8 h-8 rounded-xl flex items-center justify-center font-display font-extrabold text-sm"
+            style={{ background: "var(--gold)", color: "var(--gold-fg)" }}
+          >
             {day}
           </div>
-          <div>
-            <p className="text-xs text-[#6B6B8A] font-medium">Hari {day}</p>
-          </div>
+          <span className="text-xs font-medium" style={{ color: "var(--text-2)" }}>Hari {day}</span>
         </div>
-        <span className={`flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full border ${themeStyle.badge}`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${themeStyle.dot}`} />
+        <div
+          className="flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full"
+          style={{ background: themeStyle.color, color: themeStyle.dot, border: `1px solid ${themeStyle.dot}28` }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: themeStyle.dot }} />
           {theme}
-        </span>
+        </div>
       </div>
 
-      <div className="p-5 flex flex-col gap-5 flex-1">
+      <div className="p-5 flex flex-col gap-4 flex-1">
 
         {/* Visual Concept */}
         <div>
-          <p className="text-[10px] font-semibold text-[#6B6B8A] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <Sparkles className="w-3 h-3 text-violet-400" />
+          <p className="text-[10px] font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5" style={{ color: "var(--text-2)" }}>
+            <Sparkles className="w-3 h-3" style={{ color: "var(--gold)" }} />
             Konsep Visual
           </p>
-          <div className="p-3.5 rounded-xl bg-[#161625] border border-white/[0.06] text-[#A0A0C0] text-xs leading-relaxed italic">
+          <div
+            className="p-3.5 rounded-xl text-xs leading-relaxed italic"
+            style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text-2)" }}
+          >
             "{visual_concept}"
           </div>
         </div>
@@ -213,27 +237,33 @@ export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
         {/* Caption */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <p className="text-[10px] font-semibold text-[#6B6B8A] uppercase tracking-wider">Caption & CTA</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "var(--text-2)" }}>
+              Caption & CTA
+            </p>
             <button
               onClick={handleCopyCaption}
-              className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-semibold transition-all ${
-                copiedCaption
-                  ? "bg-emerald-900/30 text-emerald-300 border border-emerald-700/30"
-                  : "bg-white/[0.04] hover:bg-white/[0.08] text-[#A0A0C0] hover:text-white border border-white/[0.06]"
-              }`}
+              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-semibold transition-all"
+              style={copiedCaption ? {
+                background: "rgba(16,185,129,0.12)", color: "var(--green)", border: "1px solid rgba(16,185,129,0.28)"
+              } : {
+                background: "var(--bg-3)", color: "var(--text-2)", border: "1px solid var(--border)"
+              }}
             >
               {copiedCaption ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
               {copiedCaption ? "Tersalin!" : "Salin"}
             </button>
           </div>
-          <div className="p-4 rounded-xl bg-[#161625] border border-white/[0.06] text-[#D0D0E8] text-sm leading-relaxed whitespace-pre-line max-h-48 overflow-y-auto">
+          <div
+            className="p-4 rounded-xl text-sm leading-relaxed whitespace-pre-line max-h-44 overflow-y-auto"
+            style={{ background: "var(--bg-3)", border: "1px solid var(--border)", color: "var(--text)" }}
+          >
             {caption}
           </div>
         </div>
 
         {/* Hashtags */}
         <div>
-          <p className="text-[10px] font-semibold text-[#6B6B8A] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <p className="text-[10px] font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5" style={{ color: "var(--text-2)" }}>
             <Hash className="w-3 h-3" />
             Hashtag
           </p>
@@ -245,7 +275,10 @@ export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
                   navigator.clipboard.writeText(tag);
                   onAlert(`Salin: ${tag}`, "info");
                 }}
-                className="text-xs px-2.5 py-1 rounded-lg bg-violet-900/20 border border-violet-700/25 text-violet-300 hover:bg-violet-900/40 transition-colors font-medium"
+                className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-all"
+                style={{ background: "var(--gold-dim)", color: "var(--gold)", border: "1px solid rgba(245,158,11,0.2)" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "rgba(245,158,11,0.2)")}
+                onMouseLeave={e => (e.currentTarget.style.background = "var(--gold-dim)")}
               >
                 {tag.startsWith("#") ? tag : `#${tag}`}
               </button>
@@ -254,123 +287,186 @@ export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
         </div>
 
         {/* Media Generation (collapsible) */}
-        <div className="rounded-xl border border-white/[0.06] overflow-hidden">
+        <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
           <button
             onClick={() => setShowMedia(!showMedia)}
-            className="w-full flex items-center justify-between px-4 py-3 bg-[#161625] hover:bg-[#1a1a2e] transition-colors text-left"
+            className={collapseHeaderCls}
+            style={{ background: "var(--bg-3)" }}
           >
             <div className="flex items-center gap-2">
-              <Film className="w-4 h-4 text-violet-400" />
-              <span className="text-xs font-semibold text-[#A0A0C0]">Generate Visual AI</span>
-              <span className="tag tag-violet text-[9px] py-0.5">Gambar + Video</span>
+              <Film className="w-4 h-4" style={{ color: "var(--gold)" }} />
+              <span className="text-xs font-semibold" style={{ color: "var(--text)" }}>Generate Visual AI</span>
+              <span
+                className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                style={{ background: "var(--gold-dim)", color: "var(--gold)", border: "1px solid rgba(245,158,11,0.25)" }}
+              >
+                Gambar + Video
+              </span>
             </div>
-            {showMedia ? <ChevronUp className="w-4 h-4 text-[#6B6B8A]" /> : <ChevronDown className="w-4 h-4 text-[#6B6B8A]" />}
+            {showMedia
+              ? <ChevronUp className="w-4 h-4" style={{ color: "var(--text-2)" }} />
+              : <ChevronDown className="w-4 h-4" style={{ color: "var(--text-2)" }} />
+            }
           </button>
 
           {showMedia && (
-            <div className="p-4 flex flex-col gap-5 bg-[#0E0E1A]">
+            <div className="p-4 flex flex-col gap-5" style={{ background: "var(--card-bg)" }}>
               {/* Image Gen */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold text-[#A0A0C0] flex items-center gap-1.5">
-                    <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
+                  <p className="text-xs font-semibold flex items-center gap-1.5" style={{ color: "var(--text-2)" }}>
+                    <ImageIcon className="w-3.5 h-3.5" style={{ color: "var(--green)" }} />
                     Gambar Promosi (Gemini 2.5)
                   </p>
-                  <span className="text-[9px] text-emerald-400 bg-emerald-900/20 border border-emerald-700/25 px-2 py-0.5 rounded-full">Gemini</span>
+                  <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(16,185,129,0.12)", color: "var(--green)", border: "1px solid rgba(16,185,129,0.25)" }}>
+                    Gemini
+                  </span>
                 </div>
                 {imageUrl ? (
                   <div className="flex flex-col gap-2">
-                    <div className="rounded-xl border border-white/[0.07] overflow-hidden bg-[#161625]">
+                    <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
                       <img src={imageUrl} alt="" referrerPolicy="no-referrer" className="w-full h-auto object-cover max-h-[280px]" />
                     </div>
-                    <a href={imageUrl} download={`BPlan_Day${day}.png`} className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-colors">
+                    <a
+                      href={imageUrl}
+                      download={`BPlan_Day${day}.png`}
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold transition-all"
+                      style={{ background: "var(--green)", color: "white" }}
+                    >
                       <Download className="w-3.5 h-3.5" /> Unduh Gambar
                     </a>
                   </div>
                 ) : isGeneratingImage ? (
                   <div className="flex flex-col items-center gap-2 py-6">
-                    <RefreshCw className="w-5 h-5 text-emerald-400 animate-spin" />
-                    <p className="text-xs text-[#6B6B8A]">AI sedang menggambar...</p>
+                    <RefreshCw className="w-5 h-5 animate-spin" style={{ color: "var(--green)" }} />
+                    <p className="text-xs" style={{ color: "var(--text-2)" }}>AI sedang menggambar...</p>
                   </div>
                 ) : (
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex gap-1">
                       {(["1:1", "9:16", "16:9", "4:3"] as const).map((r) => (
-                        <button key={r} onClick={() => setImageAspectRatio(r)} className={`text-[10px] px-2 py-1 rounded-lg font-semibold border transition-all ${imageAspectRatio === r ? "bg-emerald-600 text-white border-emerald-600" : "bg-[#161625] text-[#6B6B8A] border-white/[0.06] hover:border-white/[0.1]"}`}>{r}</button>
+                        <button
+                          key={r}
+                          onClick={() => setImageAspectRatio(r)}
+                          className="text-[10px] px-2 py-1 rounded-lg font-semibold border transition-all"
+                          style={imageAspectRatio === r
+                            ? { background: "var(--green)", color: "white", borderColor: "var(--green)" }
+                            : { background: "var(--bg-3)", color: "var(--text-2)", borderColor: "var(--border)" }
+                          }
+                        >
+                          {r}
+                        </button>
                       ))}
                     </div>
-                    <button onClick={handleGenerateImage} className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-colors flex items-center gap-1 whitespace-nowrap">
+                    <button
+                      onClick={handleGenerateImage}
+                      className="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 whitespace-nowrap transition-all hover:opacity-90"
+                      style={{ background: "var(--green)", color: "white" }}
+                    >
                       <PlayCircle className="w-3.5 h-3.5" /> Buat Gambar
                     </button>
                   </div>
                 )}
-                {imageError && <p className="text-[10px] text-red-400 bg-red-900/20 border border-red-700/25 rounded-lg px-3 py-2">{imageError}</p>}
+                {imageError && (
+                  <p className="text-[10px] rounded-lg px-3 py-2" style={{ background: "rgba(239,68,68,0.1)", color: "var(--red)", border: "1px solid rgba(239,68,68,0.22)" }}>
+                    {imageError}
+                  </p>
+                )}
               </div>
 
-              <div className="h-px bg-white/[0.05]" />
+              <div className="h-px" style={{ background: "var(--border)" }} />
 
               {/* Video Gen */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold text-[#A0A0C0] flex items-center gap-1.5">
-                    <Video className="w-3.5 h-3.5 text-violet-400" />
+                  <p className="text-xs font-semibold flex items-center gap-1.5" style={{ color: "var(--text-2)" }}>
+                    <Video className="w-3.5 h-3.5" style={{ color: "#A78BFA" }} />
                     Video Promosi (Veo 3.1)
                   </p>
-                  <span className="text-[9px] text-amber-400 bg-amber-900/20 border border-amber-700/25 px-2 py-0.5 rounded-full">Beta</span>
+                  <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: "var(--gold-dim)", color: "var(--gold)", border: "1px solid rgba(245,158,11,0.25)" }}>
+                    Beta
+                  </span>
                 </div>
                 {videoUrl ? (
                   <div className="flex flex-col gap-2">
-                    <video controls className="w-full aspect-video rounded-xl border border-white/[0.07] bg-black" src={videoUrl} />
-                    <a href={videoUrl} download={`BPlan_Video_Day${day}.mp4`} className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold transition-colors">
+                    <video controls className="w-full aspect-video rounded-xl" style={{ background: "var(--bg-3)", border: "1px solid var(--border)" }} src={videoUrl} />
+                    <a
+                      href={videoUrl}
+                      download={`BPlan_Video_Day${day}.mp4`}
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold"
+                      style={{ background: "#A78BFA", color: "white" }}
+                    >
                       <Download className="w-3.5 h-3.5" /> Unduh Video
                     </a>
                   </div>
                 ) : isGeneratingVideo ? (
                   <div className="flex flex-col items-center gap-2 py-6">
-                    <RefreshCw className="w-5 h-5 text-violet-400 animate-spin" />
-                    <p className="text-xs text-[#6B6B8A]">{videoProgress}</p>
+                    <RefreshCw className="w-5 h-5 animate-spin" style={{ color: "#A78BFA" }} />
+                    <p className="text-xs" style={{ color: "var(--text-2)" }}>{videoProgress}</p>
                   </div>
                 ) : (
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex gap-1">
                       {(["9:16", "16:9"] as const).map((r) => (
-                        <button key={r} onClick={() => setAspectRatio(r)} className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold border transition-all ${aspectRatio === r ? "bg-violet-600 text-white border-violet-600" : "bg-[#161625] text-[#6B6B8A] border-white/[0.06] hover:border-white/[0.1]"}`}>{r}</button>
+                        <button
+                          key={r}
+                          onClick={() => setAspectRatio(r)}
+                          className="text-[10px] px-2.5 py-1 rounded-lg font-semibold border transition-all"
+                          style={aspectRatio === r
+                            ? { background: "#A78BFA", color: "white", borderColor: "#A78BFA" }
+                            : { background: "var(--bg-3)", color: "var(--text-2)", borderColor: "var(--border)" }
+                          }
+                        >
+                          {r}
+                        </button>
                       ))}
                     </div>
-                    <button onClick={handleGenerateVideo} className="px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold transition-colors flex items-center gap-1 whitespace-nowrap">
+                    <button
+                      onClick={handleGenerateVideo}
+                      className="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 whitespace-nowrap hover:opacity-90 transition-all"
+                      style={{ background: "#A78BFA", color: "white" }}
+                    >
                       <PlayCircle className="w-3.5 h-3.5" /> Buat Video
                     </button>
                   </div>
                 )}
-                {videoError && <p className="text-[10px] text-red-400 bg-red-900/20 border border-red-700/25 rounded-lg px-3 py-2">{videoError}</p>}
+                {videoError && (
+                  <p className="text-[10px] rounded-lg px-3 py-2" style={{ background: "rgba(239,68,68,0.1)", color: "var(--red)", border: "1px solid rgba(239,68,68,0.22)" }}>
+                    {videoError}
+                  </p>
+                )}
               </div>
             </div>
           )}
         </div>
 
         {/* Google Calendar (collapsible) */}
-        <div className="rounded-xl border border-white/[0.06] overflow-hidden">
+        <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
           <button
             onClick={() => setShowCalendar(!showCalendar)}
-            className="w-full flex items-center justify-between px-4 py-3 bg-[#161625] hover:bg-[#1a1a2e] transition-colors text-left"
+            className={collapseHeaderCls}
+            style={{ background: "var(--bg-3)" }}
           >
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-blue-400" />
-              <span className="text-xs font-semibold text-[#A0A0C0]">Jadwalkan ke Google Calendar</span>
+              <Calendar className="w-4 h-4" style={{ color: "var(--blue)" }} />
+              <span className="text-xs font-semibold" style={{ color: "var(--text)" }}>Jadwalkan ke Google Calendar</span>
               {calendarLink && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />}
             </div>
-            {showCalendar ? <ChevronUp className="w-4 h-4 text-[#6B6B8A]" /> : <ChevronDown className="w-4 h-4 text-[#6B6B8A]" />}
+            {showCalendar
+              ? <ChevronUp className="w-4 h-4" style={{ color: "var(--text-2)" }} />
+              : <ChevronDown className="w-4 h-4" style={{ color: "var(--text-2)" }} />
+            }
           </button>
 
           {showCalendar && (
-            <div className="p-4 bg-[#0E0E1A]">
+            <div className="p-4" style={{ background: "var(--card-bg)" }}>
               {calendarLink ? (
-                <div className="flex flex-col gap-3 p-4 rounded-xl bg-emerald-900/20 border border-emerald-700/25">
-                  <div className="flex items-center gap-2 text-xs text-emerald-300 font-semibold">
+                <div className="flex flex-col gap-3 p-4 rounded-xl" style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.25)" }}>
+                  <div className="flex items-center gap-2 text-xs font-semibold" style={{ color: "var(--green)" }}>
                     <CheckCircle className="w-4 h-4" />
                     Dijadwalkan: {scheduledDate} pukul {scheduledTime}
                   </div>
-                  <a href={calendarLink} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 underline hover:text-emerald-300 transition-colors">
+                  <a href={calendarLink} target="_blank" rel="noopener noreferrer" className="text-xs underline transition-colors" style={{ color: "var(--green)" }}>
                     Buka di Google Calendar →
                   </a>
                 </div>
@@ -378,27 +474,30 @@ export const ContentCalendarCard: React.FC<ContentCalendarCardProps> = ({
                 <div className="flex flex-col gap-3">
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <p className="text-[10px] text-[#6B6B8A] mb-1.5">Tanggal</p>
+                      <p className="text-[10px] mb-1.5 font-medium" style={{ color: "var(--text-2)" }}>Tanggal</p>
                       <input type="date" value={scheduledDate} onChange={(e) => setScheduledDate(e.target.value)} className={inputCls} />
                     </div>
                     <div>
-                      <p className="text-[10px] text-[#6B6B8A] mb-1.5">Pukul</p>
+                      <p className="text-[10px] mb-1.5 font-medium" style={{ color: "var(--text-2)" }}>Pukul</p>
                       <input type="time" value={scheduledTime} onChange={(e) => setScheduledTime(e.target.value)} className={inputCls} />
                     </div>
                   </div>
                   <button
                     onClick={handleScheduleEvent}
                     disabled={isScheduling || !accessToken}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#161625] hover:bg-[#1e1e35] border border-white/[0.08] text-white text-xs font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+                    style={{ background: "var(--blue)", color: "white" }}
                   >
                     {isScheduling ? (
                       <><RefreshCw className="w-3.5 h-3.5 animate-spin" /> Menjadwalkan...</>
                     ) : (
-                      <><Calendar className="w-3.5 h-3.5 text-blue-400" /> Jadwalkan ke Calendar</>
+                      <><Calendar className="w-3.5 h-3.5" /> Jadwalkan ke Calendar</>
                     )}
                   </button>
                   {!accessToken && (
-                    <p className="text-[10px] text-amber-400 text-center">Koneksi Google diperlukan. Masuk ulang.</p>
+                    <p className="text-[10px] text-center" style={{ color: "var(--gold)" }}>
+                      Koneksi Google diperlukan. Masuk ulang.
+                    </p>
                   )}
                 </div>
               )}
