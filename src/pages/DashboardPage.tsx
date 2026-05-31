@@ -750,8 +750,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, accessToken,
                     ].map((tip, i) => (
                       <div key={i} className="flex items-start gap-3 text-sm" style={{ color: "var(--text-2)" }}>
                         <span
-                          className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 font-semibold" style={{ color: "var(--gold)" }}
-                          style={{ background: "var(--violet-dim)", border: "1px solid rgba(124,58,237,0.3)" }}
+                          className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 font-semibold"
+                          style={{ color: "var(--gold)", background: "var(--violet-dim)", border: "1px solid rgba(124,58,237,0.3)" }}
                         >
                           {i + 1}
                         </span>
